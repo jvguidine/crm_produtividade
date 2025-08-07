@@ -1,0 +1,31 @@
+<h2>Tarefas do Usuário</h2>
+
+<form method="get">
+    <label>Status:</label>
+    <select name="status">
+        <option value="">Todos</option>
+        <option value="pendente">Pendente</option>
+        <option value="em_andamento">Em andamento</option>
+        <option value="concluida">Concluída</option>
+    </select>
+
+    <label>Prioridade:</label>
+    <select name="prioridade">
+        <option value="">Todas</option>
+        <option value="baixa">Baixa</option>
+        <option value="media">Média</option>
+        <option value="alta">Alta</option>
+    </select>
+
+    <button type="submit">Filtrar</button>
+</form>
+
+<ul>
+    {% for tarefa in tarefas %}
+        <li>
+            <strong>{{ tarefa.titulo }}</strong> - {{ tarefa.status }} - {{ tarefa.prioridade }} ({{ tarefa.prazo }})
+        </li>
+    {% empty %}
+        <li>Nenhuma tarefa encontrada.</li>
+    {% endfor %}
+</ul>
