@@ -17,3 +17,7 @@ def tarefas_por_usuario(request, usuario_id):
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
     return render(request, 'listar_usuarios.html', {'usuarios': usuarios})
+
+def listar_tarefas(request):
+    tarefas = Tarefa.objects.all()
+    return render(request, 'listar_tarefas.html', {'tarefas': tarefas})
