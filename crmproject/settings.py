@@ -126,3 +126,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 import os
 
 TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'core', 'templates')]
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'admin@crm.com'

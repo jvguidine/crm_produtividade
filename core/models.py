@@ -1,4 +1,7 @@
 from django.db import models 
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mail
 
 class Time(models.Model):
     nome = models.CharField(max_length=100)
@@ -38,3 +41,26 @@ class Tarefa(models.Model):
 
     def __str__(self):
         return self.titulo
+    
+@receiver(post_save, sender=Tarefa)
+def enviar_email_tarefa(sender, instance, created, **Kwargs):
+    if created:
+        assunto = f"Nova tarefa atribuída: {instance.titulo}"
+        mensagem = (
+            f"Olá {instance.usuario.nome},\n\n"
+            f"Uma nova tarefa foi atrubuída a você no sistema:\n\n"
+            f"Título: {instance.titulo}\n"
+            f"Descrição: {instance.descricao}\n"
+            f"Prazo: {instance.prazo}\n"
+            f"Prioridade: {instance.prioridade}\n"
+            f"Status: {instance.status}"
+            f"Time: {instance.time.nome}"
+        )
+
+        send_mail(
+            assunto,
+            mensagem,
+            'admin@crm,com',
+            [instance.usuario.email],
+            fail_silently=False,
+        )
