@@ -1,0 +1,15 @@
+<h2>Usuários</h2>
+
+<ul>
+    {% for usuario in usuarios %}
+        <li>
+            <strong>{{ usuario.nome }}</strong> ({{ usuario.email }}) — 
+            <a href="{% url 'tarefas_por_usuario' usuario.id %}">
+                <button>Ver Tarefas</button>
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<br>
+<a href="/admin/"><button>Voltar para o Admin</button></a>
