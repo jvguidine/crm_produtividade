@@ -1,4 +1,7 @@
 <h1>Lista de Tarefas</h1>
+
+<p><a href="{% url 'criar_tarefa' %}">+ Nova Tarefa</a></p>
+
 <ul>
 {% for tarefa in tarefas %}
     <li>{{ tarefa.titulo }} - {{ tarefa.status }} - {{ tarefa.prioridade }}</li>
