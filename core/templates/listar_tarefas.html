@@ -1,11 +1,31 @@
-<h1>Lista de Tarefas</h1>
+{% extends "base.html" %}
+{% block title %}Minhas Tarefas · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Minhas Tarefas</h1>
+    <p><a class="btn-ok" href="{% url 'criar_tarefa' %}">+ Nova Tarefa</a></p>
 
-<p><a href="{% url 'criar_tarefa' %}">+ Nova Tarefa</a></p>
-
-<ul>
-{% for tarefa in tarefas %}
-    <li>{{ tarefa.titulo }} - {{ tarefa.status }} - {{ tarefa.prioridade }}</li>
-{% empty %}
-    <li>Nenhuma tarefa cadastrada.</li>
-{% endfor %}
-</ul>
+    {% if tarefas %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Status</th>
+            <th>Prioridade</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for tarefa in tarefas %}
+          <tr>
+            <td>{{ tarefa.titulo }}</td>
+            <td>{{ tarefa.status }}</td>
+            <td>{{ tarefa.prioridade }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty">Nenhuma tarefa cadastrada.</p>
+    {% endif %}
+  </div>
+{% endblock %}

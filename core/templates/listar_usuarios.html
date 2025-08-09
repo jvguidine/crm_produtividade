@@ -1,15 +1,29 @@
-<h2>Usuários</h2>
-
-<ul>
-    {% for usuario in usuarios %}
-        <li>
-            <strong>{{ usuario.nome }}</strong> ({{ usuario.email }}) — 
-            <a href="{% url 'tarefas_por_usuario' usuario.id %}">
-                <button>Ver Tarefas</button>
-            </a>
-        </li>
-    {% endfor %}
-</ul>
-
-<br>
-<a href="/admin/"><button>Voltar para o Admin</button></a>
+{% extends "base.html" %}
+{% block title %}Usuários · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Usuários</h1>
+    {% if usuarios %}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Cargo</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for u in usuarios %}
+          <tr>
+            <td>{{ u.nome }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.cargo }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty">Nenhum usuário cadastrado.</p>
+    {% endif %}
+  </div>
+{% endblock %}

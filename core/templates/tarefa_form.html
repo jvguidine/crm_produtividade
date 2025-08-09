@@ -1,19 +1,15 @@
-<!doctype html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nova Tarefa</title>
-</head>
-<body>
-  <h1>Criar Nova Tarefa</h1>
+{% extends "base.html" %}
+{% block title %}Nova Tarefa · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Criar Nova Tarefa</h1>
 
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Salvar</button>
-  </form>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn-ok" type="submit">Salvar</button>
+    </form>
 
-  <p><a href="{% url 'listar_tarefas' %}">← Voltar para minhas tarefas</a></p>
-</body>
-</html>
+    <p style="margin-top:12px;"><a class="btn" href="{% url 'listar_tarefas' %}">← Voltar para minhas tarefas</a></p>
+  </div>
+{% endblock %}

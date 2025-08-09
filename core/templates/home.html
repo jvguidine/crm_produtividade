@@ -1,18 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Mini CRM de Produtividade</title>
-</head>
-<body>
-  <h1>Mini CRM de Produtividade</h1>
-  <p>Bem-vindo! Escolha uma opção:</p>
-  <ul>
-    <li><a href="{% url 'admin:index' %}">Admin</a></li>
-    <li><a href="{% url 'listar_tarefas' %}">Tarefas</a></li>
-    <li><a href="{% url 'listar_usuarios' %}">Usuários</a></li>
-    <li><a href="{% url 'login' %}">Login</a></li>
-  </ul>
-</body>
-</html>
+{% extends "base.html" %}
+{% block title %}Início · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Mini CRM de Produtividade</h1>
+    <p>Bem-vindo! Escolha uma opção:</p>
+    <ul>
+      <li><a class="btn" href="{% url 'admin:index' %}">Admin</a></li>
+      <li><a class="btn" href="{% url 'listar_tarefas' %}">Minhas tarefas</a></li>
+      <li><a class="btn" href="{% url 'listar_usuarios' %}">Usuários</a></li>
+      {% if not user.is_authenticated %}
+        <li><a class="btn" href="{% url 'login' %}">Entrar</a></li>
+      {% endif %}
+    </ul>
+  </div>
+{% endblock %}
