@@ -45,14 +45,17 @@
         <a class="pill" href="{% url 'listar_tarefas' %}">Minhas tarefas</a>
         <a class="pill" href="{% url 'listar_usuarios' %}">Usuários</a>
       </div>
-      <div class="nav-right">
-        {% if user.is_authenticated %}
-          <span class="pill">Olá, {{ user.get_username }}</span>
-          <a class="pill" href="{% url 'logout' %}">Sair</a>
-        {% else %}
-          <a class="pill" href="{% url 'login' %}">Entrar</a>
-        {% endif %}
-      </div>
+    <div class="nav-right">
+      {% if user.is_authenticated %}
+        <a class="pill" href="{% url 'criar_tarefa' %}">+ Nova tarefa</a>
+        <span class="pill">Olá, {{ user.get_username }}</span>
+        <a class="pill" href="{% url 'logout' %}">Sair</a>
+      {% else %}
+        <a class="pill" href="{% url 'login' %}">Entrar</a>
+        <a class="pill" href="{% url 'registrar' %}">Registrar</a>
+      {% endif %}
+    </div>
+
     </div>
   </header>
 

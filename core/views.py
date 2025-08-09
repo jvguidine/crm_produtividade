@@ -3,7 +3,8 @@ from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
-from .forms import TarefaForm
+from django.contrib.auth import login as auth_login
+from .forms import TarefaForm, CustomUserCreationForm
 
 from .models import Tarefa, Usuario
 
@@ -70,4 +71,30 @@ def criar_tarefa(request):
     else:
         form = TarefaForm()
 
-    return render(request, "tarefa_form.html", {"form": form})
+    return render(request, "tarefa_form.html", {"form": form}) 
+
+@login_required
+def pos_login_redirect(request):
+    from django.shortcuts import redirect
+    if request.user.is_staff:
+        return redirect("listar_usuarios")
+    return redirect("listar_tarefas")
+
+def registrar(request):
+    if request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()  # cria o auth.User
+            # cria/garante o seu Usuario correspondente (tabela do app)
+            _ = _get_or_create_usuario_from_user(user)
+            # faz login automático e redireciona conforme perfil
+            auth_login(request, user)
+            # se você já criou a view pos_login_redirect, use-a:
+            try:
+                return redirect("pos_login_redirect")
+            except Exception:
+                # fallback: vai para "Minhas tarefas"
+                return redirect("listar_tarefas")
+    else:
+        form = CustomUserCreationForm()
+    return render(request, "registrar.html", {"form": form})

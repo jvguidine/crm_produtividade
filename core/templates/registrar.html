@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block title %}Criar conta · Mini CRM{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Criar conta</h1>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.non_field_errors }}
+
+      <p>
+        <label for="{{ form.username.id_for_label }}">Nome de usuário:</label><br>
+        {{ form.username }}<br>
+        <small>Obrigatório. 150 caracteres ou menos. Letras, números e @/./+/-/_ apenas.</small>
+        {{ form.username.errors }}
+      </p>
+
+      <p>
+        <label for="{{ form.email.id_for_label }}">E-mail:</label><br>
+        {{ form.email }}<br>
+        {{ form.email.errors }}
+      </p>
+
+      <p>
+        <label for="{{ form.password1.id_for_label }}">Senha:</label><br>
+        {{ form.password1 }}<br>
+        <small>
+          Sua senha não pode ser muito parecida com outras informações pessoais.<br>
+          Deve conter pelo menos 8 caracteres.<br>
+          Não pode ser uma senha muito comum.<br>
+          Não pode conter apenas números.
+        </small>
+        {{ form.password1.errors }}
+      </p>
+
+      <p>
+        <label for="{{ form.password2.id_for_label }}">Confirmação de senha:</label><br>
+        {{ form.password2 }}<br>
+        <small>Digite a mesma senha novamente, para verificação.</small>
+        {{ form.password2.errors }}
+      </p>
+
+      <button class="btn-ok" type="submit">Registrar</button>
+    </form>
+
+    <p style="margin-top:12px;">
+      Já tenho conta → <a class="btn" href="{% url 'login' %}">Entrar</a>
+    </p>
+  </div>
+{% endblock %}

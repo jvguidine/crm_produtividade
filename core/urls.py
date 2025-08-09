@@ -9,4 +9,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
     path('tarefas/', views.listar_tarefas, name='listar_tarefas'),
     path('tarefas/nova/', views.criar_tarefa, name='criar_tarefa'),
+    path('registrar/', views.registrar, name='registrar'),
+    path('pos-login/', views.pos_login_redirect, name='pos_login_redirect'),
 ]
