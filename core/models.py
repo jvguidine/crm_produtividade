@@ -38,6 +38,8 @@ class Tarefa(models.Model):
     prioridade = models.CharField(max_length=10, choices=PRIORIDADE_CHOICES)
     time = models.ForeignKey(Time, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    data_conclusao = models.DateTimeField(null=True, blank=True)
+
 
     def __str__(self):
         return self.titulo
@@ -53,14 +55,14 @@ def enviar_email_tarefa(sender, instance, created, **Kwargs):
             f"Descrição: {instance.descricao}\n"
             f"Prazo: {instance.prazo}\n"
             f"Prioridade: {instance.prioridade}\n"
-            f"Status: {instance.status}"
-            f"Time: {instance.time.nome}"
+            f"Status: {instance.status}\n"
+            f"Time: {instance.time.nome}\n"
         )
 
         send_mail(
             assunto,
             mensagem,
-            'admin@crm,com',
+            'admin@crm.com',
             [instance.usuario.email],
             fail_silently=False,
         )

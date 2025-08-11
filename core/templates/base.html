@@ -43,21 +43,28 @@
       <div class="nav-left">
         <a class="brand" href="{% url 'home' %}">Mini CRM</a>
         <a class="pill" href="{% url 'listar_tarefas' %}">Minhas tarefas</a>
-        <a class="pill" href="{% url 'listar_usuarios' %}">Usuários</a>
-      </div>
-    <div class="nav-right">
-      {% if user.is_authenticated %}
-        <a class="pill" href="{% url 'criar_tarefa' %}">+ Nova tarefa</a>
-        <span class="pill">Olá, {{ user.get_username }}</span>
-        <a class="pill" href="{% url 'logout' %}">Sair</a>
-      {% else %}
-        <a class="pill" href="{% url 'login' %}">Entrar</a>
-        <a class="pill" href="{% url 'registrar' %}">Registrar</a>
-      {% endif %}
-    </div>
 
+        {% if user.is_staff %}
+          <a class="pill" href="{% url 'time_list' %}">Times</a>
+          <a class="pill" href="{% url 'usuario_list' %}">Usuários</a>
+        {% endif %}
+      </div>
+      <div class="nav-right">
+        {% if user.is_authenticated %}
+          <a class="pill" href="{% url 'criar_tarefa' %}">+ Nova tarefa</a>
+          <span class="pill">Olá, {{ user.get_username }}</span>
+          <form action="{% url 'logout' %}" method="post" style="margin:0;">
+            {% csrf_token %}
+            <button class="pill" type="submit">Sair</button>
+          </form>
+
+        {% else %}
+          <a class="pill" href="{% url 'login' %}">Entrar</a>
+          <a class="pill" href="{% url 'registrar' %}">Registrar</a>
+        {% endif %}
+      </div>
     </div>
-  </header>
+</header>
 
   <div class="container">
     {% if messages %}
@@ -75,7 +82,7 @@
 
   <footer>
     <div class="container">
-      <div class="card">Projeto acadêmico – EmpreagaSenac / Mini CRM de Produtividade</div>
+      <div class="card">Projeto acadêmico – / Mini CRM de Produtividade</div>
     </div>
   </footer>
 </body>

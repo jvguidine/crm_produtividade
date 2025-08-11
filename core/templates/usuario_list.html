@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Usuários · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Usuários</h1>
+    <p><a class="btn-ok" href="{% url 'usuario_create' %}">+ Novo Usuário</a></p>
+    {% if usuarios %}
+      <table class="table">
+        <thead><tr><th>Nome</th><th>E-mail</th><th>Cargo</th><th></th></tr></thead>
+        <tbody>
+          {% for u in usuarios %}
+          <tr>
+            <td>{{ u.nome }}</td>
+            <td>{{ u.email }}</td>
+            <td>{{ u.cargo }}</td>
+            <td>
+              <a class="btn" href="{% url 'usuario_update' u.pk %}">Editar</a>
+              <a class="btn" href="{% url 'usuario_delete' u.pk %}">Excluir</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty">Nenhum usuário cadastrado.</p>
+    {% endif %}
+  </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Excluir Tarefa · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Excluir Tarefa</h1>
+    <p>Tem certeza que deseja excluir a tarefa <strong>{{ object.titulo }}</strong>?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn-ok" type="submit">Confirmar</button>
+      <a class="btn" href="{% url 'tarefa_detalhe' object.pk %}">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

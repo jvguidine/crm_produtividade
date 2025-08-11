@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Detalhe da Tarefa · Mini CRM{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>{{ tarefa.titulo }}</h1>
+
+    <p><strong>Status:</strong> {{ tarefa.status }}</p>
+    <p><strong>Prioridade:</strong> {{ tarefa.prioridade }}</p>
+    <p><strong>Prazo:</strong> {{ tarefa.prazo|date:"d/m/Y" }}</p>
+    <p><strong>Time:</strong> {{ tarefa.time.nome }}</p>
+
+    {% if tarefa.data_conclusao %}
+      <p><strong>Concluída em:</strong> {{ tarefa.data_conclusao|date:"d/m/Y H:i" }}</p>
+    {% endif %}
+
+    <h2>Descrição</h2>
+    <p>{{ tarefa.descricao|linebreaksbr }}</p>
+
+    <div style="margin-top:14px; display:flex; gap:10px; align-items:center;">
+      <a class="btn" href="{% url 'listar_tarefas' %}">← Voltar</a>
+
+      {% if tarefa.status != "concluida" %}
+        <form method="post" action="{% url 'tarefa_finalizar' tarefa.pk %}" style="margin:0;">
+          {% csrf_token %}
+          <button type="submit" class="btn-ok">Marcar como concluída</button>
+        </form>
+      {% endif %}
+
+      <a class="btn" href="{% url 'tarefa_editar' tarefa.pk %}">Editar</a>
+      <a class="btn" href="{% url 'tarefa_excluir' tarefa.pk %}">Excluir</a>
+    </div>
+  </div>
+{% endblock %}

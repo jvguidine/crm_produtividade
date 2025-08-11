@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Times · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Times</h1>
+    <p><a class="btn-ok" href="{% url 'time_create' %}">+ Novo Time</a></p>
+    {% if times %}
+      <table class="table">
+        <thead><tr><th>Nome</th><th>Descrição</th><th></th></tr></thead>
+        <tbody>
+          {% for t in times %}
+          <tr>
+            <td>{{ t.nome }}</td>
+            <td>{{ t.descricao }}</td>
+            <td>
+              <a class="btn" href="{% url 'time_update' t.pk %}">Editar</a>
+              <a class="btn" href="{% url 'time_delete' t.pk %}">Excluir</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p class="empty">Nenhum time cadastrado.</p>
+    {% endif %}
+  </div>
+{% endblock %}

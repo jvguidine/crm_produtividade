@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block title %}Início · Mini CRM{% endblock %}
+
 {% block content %}
   <div class="card">
     <h1>Mini CRM de Produtividade</h1>
@@ -7,11 +8,19 @@
     <ul>
       <li><a class="btn" href="{% url 'admin:index' %}">Admin</a></li>
       <li><a class="btn" href="{% url 'listar_tarefas' %}">Minhas tarefas</a></li>
-      <li><a class="btn" href="{% url 'listar_usuarios' %}">Usuários</a></li>
       {% if not user.is_authenticated %}
         <li><a class="btn" href="{% url 'login' %}">Entrar</a></li>
         <li><a class="btn" href="{% url 'registrar' %}">Registrar</a></li>
       {% endif %}
     </ul>
   </div>
+
+  {% if mostrar_dashboard_publico %}
+    <div class="card" style="margin-top:16px;">
+      <div style="display:flex; gap:24px; flex-wrap:wrap;">
+        <div><strong>Tarefas pendentes:</strong> {{ total_pendentes }}</div>
+        <div><strong>Tarefas concluídas:</strong> {{ total_concluidas }}</div>
+      </div>
+    </div>
+  {% endif %}
 {% endblock %}

@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY', 'chave-secreta-insegura')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True 
+DEBUG = False
 
 ALLOWED_HOSTS = ["crm-produtividade.onrender.com", "localhost", "127.0.0.1"]
 
@@ -139,6 +139,6 @@ DEFAULT_FROM_EMAIL = 'admin@crm.com'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-LOGIN_REDIRECT_URL = '/pos-login/'
+LOGIN_REDIRECT_URL = '/tarefas/tarefas/'
 LOGOUT_REDIRECT_URL = 'login'
 LOGIN_URL = 'login'

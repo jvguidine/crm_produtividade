@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Excluir Time · Mini CRM{% endblock %}
+{% block content %}
+  <div class="card">
+    <h1>Excluir Time</h1>
+    <p>Tem certeza que deseja excluir o time <strong>{{ object.nome }}</strong>?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn-ok" type="submit">Confirmar</button>
+      <a class="btn" href="{% url 'time_list' %}">Cancelar</a>
+    </form>
+  </div>
+{% endblock %}

@@ -3,7 +3,34 @@
 {% block content %}
   <div class="card">
     <h1>Minhas Tarefas</h1>
-    <p><a class="btn-ok" href="{% url 'criar_tarefa' %}">+ Nova Tarefa</a></p>
+    <p><a class="btn-ok" href="{% url 'criar_tarefa' %}">+ Nova Tarefa</a>
+       <a class="btn" href="{% url 'exportar_tarefas_csv' %}?status={{ request.GET.status }}&prioridade={{ request.GET.prioridade }}">Exportar CSV</a>
+    </p>
+
+    <form method="get" style="margin: 10px 0; display:flex; gap:10px; align-items:center;">
+      <label>Status:
+        <select name="status">
+          <option value="">— todos —</option>
+          <option value="pendente" {% if request.GET.status == 'pendente' %}selected{% endif %}>Pendente</option>
+          <option value="em_andamento" {% if request.GET.status == 'em_andamento' %}selected{% endif %}>Em andamento</option>
+          <option value="concluida" {% if request.GET.status == 'concluida' %}selected{% endif %}>Concluída</option>
+        </select>
+      </label>
+
+      <label>Prioridade:
+        <select name="prioridade">
+          <option value="">— todas —</option>
+          <option value="baixa" {% if request.GET.prioridade == 'baixa' %}selected{% endif %}>Baixa</option>
+          <option value="media" {% if request.GET.prioridade == 'media' %}selected{% endif %}>Média</option>
+          <option value="alta" {% if request.GET.prioridade == 'alta' %}selected{% endif %}>Alta</option>
+        </select>
+      </label>
+
+      <button class="btn" type="submit">Filtrar</button>
+      <a class="btn" href="{% url 'listar_tarefas' %}">Limpar</a>
+
+    </form>
+
 
     {% if tarefas %}
       <table class="table">
@@ -17,7 +44,7 @@
         <tbody>
           {% for tarefa in tarefas %}
           <tr>
-            <td>{{ tarefa.titulo }}</td>
+            <td><a href="{% url 'tarefa_detalhe' tarefa.pk %}">{{ tarefa.titulo }}</a></td>
             <td>{{ tarefa.status }}</td>
             <td>{{ tarefa.prioridade }}</td>
           </tr>
